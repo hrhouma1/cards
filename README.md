@@ -1,24 +1,20 @@
----
-
 # 🏁 Partie 1 : Lancement de l'Application et Configuration de la Base de Données PostgreSQL sur Windows
-
----
 
 Ce guide vous expliquera comment cloner le projet, l'ouvrir, configurer la base de données PostgreSQL sur Windows, et lancer l'application en utilisant Maven et Spring Boot.
 
 ## 🚀 Étapes à suivre :
 
-### 1️⃣ Cloner le projet :
+### 1️⃣ Cloner le projet
 ```bash
 git clone https://github.com/hrhouma1/cards.git
 ```
 
-### 2️⃣ Accéder au répertoire du projet :
+### 2️⃣ Accéder au répertoire du projet
 ```bash
 cd cards
 ```
 
-### 3️⃣ Ouvrir le projet dans votre éditeur de code (par exemple, Visual Studio Code) :
+### 3️⃣ Ouvrir le projet dans votre éditeur de code (par exemple, Visual Studio Code)
 ```bash
 code .
 ```
@@ -31,12 +27,12 @@ Avant de lancer l'application, il est nécessaire de configurer la base de donn�
 
 ### 1️⃣ Créer l'utilisateur PostgreSQL `hrgres` et la base de données `microDemo`
 
-#### 1.1 **Ouvrir pgAdmin ou l'invite de commande PostgreSQL** :
+#### 1.1 **Ouvrir pgAdmin ou l'invite de commande PostgreSQL**
 
 - **Via pgAdmin** : Utilisez l'interface graphique pour créer un nouvel utilisateur et une base de données.
 - **Via l'invite de commande** : Ouvrez l'invite de commande PostgreSQL.
 
-#### 1.2 **Créer l'utilisateur `hrgres` avec un mot de passe** :
+#### 1.2 **Créer l'utilisateur `hrgres` avec un mot de passe**
 
 Si vous utilisez l'invite de commande PostgreSQL :
 ```sql
@@ -48,7 +44,7 @@ Dans pgAdmin :
 - Faites un clic droit et sélectionnez "Create" > "Login/Group Role".
 - Entrez `hrgres` comme nom d'utilisateur et définissez le mot de passe sur `hrgres`.
 
-#### 1.3 **Créer la base de données `microDemo`** :
+#### 1.3 **Créer la base de données `microDemo`**
 
 Si vous utilisez l'invite de commande PostgreSQL :
 ```sql
@@ -60,7 +56,7 @@ Dans pgAdmin :
 - Faites un clic droit et sélectionnez "Create" > "Database".
 - Entrez `microDemo` comme nom de la base de données.
 
-#### 1.4 **Attribuer tous les privilèges à l'utilisateur `hrgres` sur la base de données `microDemo`** :
+#### 1.4 **Attribuer tous les privilèges à l'utilisateur `hrgres` sur la base de données `microDemo`**
 
 Si vous utilisez l'invite de commande PostgreSQL :
 ```sql
@@ -93,17 +89,17 @@ server.port=8080
 
 ## 🏃‍♂️ Lancer l'Application
 
-### 1️⃣ Nettoyer le projet avec Maven :
+### 1️⃣ Nettoyer le projet avec Maven
 ```bash
 mvn clean
 ```
 
-### 2️⃣ Compiler et installer les dépendances sans exécuter les tests :
+### 2️⃣ Compiler et installer les dépendances sans exécuter les tests
 ```bash
 mvn install -DskipTests
 ```
 
-### 3️⃣ Lancer l'application avec Spring Boot :
+### 3️⃣ Lancer l'application avec Spring Boot
 ```bash
 mvn spring-boot:run
 ```
@@ -114,21 +110,21 @@ mvn spring-boot:run
 
 Si vous rencontrez une erreur indiquant que le port 8080 est déjà utilisé, suivez ces étapes :
 
-### 1️⃣ Vérifier les processus utilisant le port 8080 :
+### 1️⃣ Vérifier les processus utilisant le port 8080
 
 Ouvrez l'invite de commande en tant qu'administrateur et exécutez :
 ```bash
 netstat -ano | findstr :8080
 ```
 
-### 2️⃣ Terminer le processus occupant le port 8080 :
+### 2️⃣ Terminer le processus occupant le port 8080
 
 Exécutez la commande suivante en remplaçant `numero_pid` par l'ID du processus récupéré :
 ```bash
 taskkill /F /PID numero_pid
 ```
 
-### 3️⃣ Relancer l'application :
+### 3️⃣ Relancer l'application
 ```bash
 mvn spring-boot:run
 ```
@@ -137,15 +133,13 @@ mvn spring-boot:run
 
 # 🏁 Partie 2 : Gestion des Comptes sans Auto-Incrément et Ajout de Clients
 
----
-
 Dans cette partie, nous allons gérer les comptes bancaires associés aux clients, en respectant certaines contraintes, notamment l'absence d'auto-incrémentation pour les comptes. **Assurez-vous de bien comprendre les relations entre les clients et les comptes avant de commencer.**
 
-## ❗ Remarque Importante :
+## ❗ Remarque Importante
 
 Avant de commencer cette partie, il est essentiel de comprendre la relation entre les `accounts` et les `customers`. **Nous ne pouvons pas créer un compte sans avoir de clients.** C'est pourquoi il est impératif de commencer par la Partie 4 (ajout de 20 clients) avant de revenir ici pour tester les comptes. Vous devez ajouter les 20 clients avant de passer à la gestion des comptes.
 
-## 🎯 Objectif :
+## 🎯 Objectif
 
 Créer 12 comptes via des requêtes POST selon la répartition suivante :
 - **Client 1** : comptes 1, 11, 21
@@ -155,7 +149,7 @@ Créer 12 comptes via des requêtes POST selon la répartition suivante :
 
 ---
 
-## 📝 Étapes:
+## 📝 Étapes
 
 ### 1️⃣ Insertion des Clients via SQL
 
@@ -184,18 +178,16 @@ Commencez par insérer les clients dans la base de données en suivant les étap
 | 19              | 2023-01-19           | email19@example.com       | 1000000019              | Name Nineteen     |
 | 20              | 2023-01-20           | email20@example.com       | 1000000020              | Name Twenty       |
 
----
-
-### 1.1 **Accéder à PostgreSQL** :
+#### 1.1 **Accéder à PostgreSQL**
 
 - Allez dans pgAdmin ou ouvrez l'invite de commande PostgreSQL.
 
-### 1.2 **Insérer les 20 clients dans la table `customer`** :
+#### 1.2 **Insérer les 
+
+20 clients dans la table `customer`**
 ```sql
 INSERT INTO public.customer (customer_id, create_dt, email, mobile_number, name)
 VALUES
-
-
 (1, '2023-01-01', 'email1@example.com', '1000000001', 'Name One'),
 (2, '2023-01-02', 'email2@example.com', '1000000002', 'Name Two'),
 (3, '2023-01-03', 'email3@example.com', '1000000003', 'Name Three'),
@@ -218,14 +210,14 @@ VALUES
 (20, '2023-01-20', 'email20@example.com', '1000000020', 'Name Twenty');
 ```
 
-### 1.3 **Vérifier l'insertion des clients** :
+#### 1.3 **Vérifier l'insertion des clients**
 ```sql
 SELECT * FROM public.customer;
 ```
 
 ---
 
-### 2️⃣ Insertion des Comptes via HTTP (POST)
+### 2️⃣ Insertion des Comptes via HTTP (POST) ➕
 
 Une fois les 20 clients ajoutés, vous pouvez commencer à créer les comptes associés via des requêtes POST.
 
@@ -244,10 +236,8 @@ Une fois les 20 clients ajoutés, vous pouvez commencer à créer les comptes as
 | Client 4   | Compte 14   | Checking           | 101 Pine St  | 2023-01-05           |
 | Client 4   | Compte 24   | Savings            | 101 Pine St  | 2023-01-05           |
 
----
+#### 2.1 **Créer un compte pour un client via Postman**
 
-### 2.1 **Créer un compte pour un client via Postman** :
-   
 Exemple pour créer un compte pour le Client 1 :
 - Ouvrez Postman.
 - Choisissez `POST`.
@@ -263,30 +253,107 @@ Exemple pour créer un compte pour le Client 1 :
 }
 ```
 
-### 2.2 **Vérifier l'insertion du compte** :
+#### 2.2 **Vérifier l'insertion du compte**
+
 - Ouvrir le navigateur et tester cette URL : `http://localhost:8080/accounts`.
 - Ou utilisez Postman pour effectuer un GET sur `http://localhost:8080/accounts`.
 
-### 2.3 **Répéter l'opération pour les autres comptes** :
-   
-Exemple pour créer un compte pour le Client 2 :
-```json
-{
-  "accountNumber": 2,
-  "customerId": 2,
-  "accountType": "Savings",
-  "branchAddress": "456 Main St",
-  "createDt": "2023-01-03"
-}
-```
+#### 2.3 **Répéter l'opération pour les autres comptes**
+
+Voici les JSON pour les autres comptes :
+
+- **Client 2 :**
+  ```json
+  {
+    "accountNumber": 2,
+    "customerId": 2,
+    "accountType": "Savings",
+    "branchAddress": "456 Main St",
+    "createDt": "2023-01-03"
+  }
+  ```
+  ```json
+  {
+    "accountNumber": 12,
+    "customerId": 2,
+    "accountType": "Checking",
+    "branchAddress": "456 Main St",
+    "createDt": "2023-01-03"
+  }
+  ```
+  ```json
+  {
+    "accountNumber": 22,
+    "customerId": 2,
+    "accountType": "Savings",
+    "branchAddress": "456 Main St",
+    "createDt": "2023-01-03"
+  }
+  ```
+
+- **Client 3 :**
+  ```json
+  {
+    "accountNumber": 3,
+    "customerId": 3,
+    "accountType": "Checking",
+    "branchAddress": "789 Elm St",
+    "createDt": "2023-01-04"
+  }
+  ```
+  ```json
+  {
+    "accountNumber": 13,
+    "customerId": 3,
+    "accountType": "Savings",
+    "branchAddress": "789 Elm St",
+    "createDt": "2023-01-04"
+  }
+  ```
+  ```json
+  {
+    "accountNumber": 23,
+    "customerId": 3,
+    "accountType": "Checking",
+    "branchAddress": "789 Elm St",
+    "createDt": "2023-01-04"
+  }
+  ```
+
+- **Client 4 :**
+  ```json
+  {
+    "accountNumber": 4,
+    "customerId": 4,
+    "accountType": "Savings",
+    "branchAddress": "101 Pine St",
+    "createDt": "2023-01-05"
+  }
+  ```
+  ```json
+  {
+    "accountNumber": 14,
+    "customerId": 4,
+    "accountType": "Checking",
+    "branchAddress": "101 Pine St",
+    "createDt": "2023-01-05"
+  }
+  ```
+  ```json
+  {
+    "accountNumber": 24,
+    "customerId": 4,
+    "accountType": "Savings",
+    "branchAddress": "101 Pine St",
+    "createDt": "2023-01-05"
+  }
+  ```
 
 ---
 
-### 3️⃣ Modifications des Comptes via HTTP (PUT)
+### 3️⃣ Modifications des Comptes via HTTP (PUT) ✏️
 
 Après avoir créé les comptes pour les clients, vous pouvez modifier les détails des comptes, tels que les adresses et le type de compte, en utilisant des requêtes PUT.
-
-Voici une table résumant les modifications apportées aux comptes des clients, y compris les anciennes et nouvelles adresses.
 
 | **Client** | **Compte** | **Type de Compte** | **Ancienne Adresse** | **Nouvelle Adresse** | **Date de Création** |
 |------------|------------|--------------------|----------------------|----------------------|----------------------|
@@ -294,7 +361,9 @@ Voici une table résumant les modifications apportées aux comptes des clients, 
 | Client 1   | Compte 11   | Savings            | 123 Main St          | 321 Broadway          | 2023-02-01           |
 | Client 1   | Compte 21   | Checking           | 123 Main St          | 321 Broadway          | 2023-02-01           |
 | Client 2   | Compte 2    | Savings            | 456 Main St          | 789 Maple Ave         | 2023-02-02           |
-| Client 2   | Compte 12   | Checking           | 456 Main St          | 789 Maple Ave         | 2023-02-02           |
+| Client 2   | Compte 12   | Checking           | 456 Main St         
+
+ | 789 Maple Ave         | 2023-02-02           |
 | Client 2   | Compte 22   | Savings            | 456 Main St          | 789 Maple Ave         | 2023-02-02           |
 | Client 3   | Compte 3    | Checking           | 789 Elm St           | 456 Oak St            | 2023-02-03           |
 | Client 3   | Compte 13   | Savings            | 789 Elm St           | 456 Oak St            | 2023-02-03           |
@@ -303,10 +372,8 @@ Voici une table résumant les modifications apportées aux comptes des clients, 
 | Client 4   | Compte 14   | Checking           | 101 Pine St          | 987 Birch Rd          | 2023-02-04           |
 | Client 4   | Compte 24   | Savings            | 101 Pine St          | 987 Birch Rd          | 2023-02-04           |
 
----
+#### 3.1 **Modifier un compte pour un client via Postman**
 
-### 3.1 **Modifier un compte pour un client via Postman** :
-   
 Exemple pour modifier le compte pour le **Client 1** :
 - Ouvrez Postman.
 - Choisissez `PUT`.
@@ -322,49 +389,16 @@ Exemple pour modifier le compte pour le **Client 1** :
 }
 ```
 
-### 3.2 **Vérifier la modification du compte** :
+#### 3.2 **Vérifier la modification du compte**
+
 - Ouvrir le navigateur et tester cette URL : `http://localhost:8080/accounts`.
 - Ou utilisez Postman pour effectuer un GET sur `http://localhost:8080/accounts`.
-- Continuez ainsi pour les comptes restants.
 
-### Comptes pour le **Client 1** (Modifications) :
+#### 3.3 **Répéter l'opération pour les autres comptes**
 
-- **Compte 1** :
-  ```json
-  {
-    "accountNumber": 1,
-    "customerId": 1,
-    "accountType": "Savings",
-    "branchAddress": "321 Broadway",
-    "createDt": "2023-02-01"
-  }
-  ```
+Voici les JSON pour les autres comptes :
 
-- **Compte 11** :
-  ```json
-  {
-    "accountNumber": 11,
-    "customerId": 1,
-    "accountType": "Current",
-    "branchAddress": "321 Broadway",
-    "createDt": "2023-02-01"
-  }
-  ```
-
-- **Compte 21** :
-  ```json
-  {
-    "accountNumber": 21,
-    "customerId": 1,
-    "accountType": "Savings",
-    "branchAddress": "321 Broadway",
-    "createDt": "2023-02-01"
-  }
-  ```
-
-### Comptes pour le **Client 2** (Modifications) :
-
-- **Compte 2** :
+- **Client 2 :**
   ```json
   {
     "accountNumber": 2,
@@ -374,8 +408,6 @@ Exemple pour modifier le compte pour le **Client 1** :
     "createDt": "2023-02-02"
   }
   ```
-
-- **Compte 12** :
   ```json
   {
     "accountNumber": 12,
@@ -385,8 +417,6 @@ Exemple pour modifier le compte pour le **Client 1** :
     "createDt": "2023-02-02"
   }
   ```
-
-- **Compte 22** :
   ```json
   {
     "accountNumber": 22,
@@ -397,9 +427,7 @@ Exemple pour modifier le compte pour le **Client 1** :
   }
   ```
 
-### Comptes pour le **Client 3** (Modifications) :
-
-- **Compte 3** :
+- **Client 3 :**
   ```json
   {
     "accountNumber": 3,
@@ -409,8 +437,6 @@ Exemple pour modifier le compte pour le **Client 1** :
     "createDt": "2023-02-03"
   }
   ```
-
-- **Compte 13** :
   ```json
   {
     "accountNumber": 13,
@@ -420,8 +446,6 @@ Exemple pour modifier le compte pour le **Client 1** :
     "createDt": "2023-02-03"
   }
   ```
-
-- **Compte 23** :
   ```json
   {
     "accountNumber": 23,
@@ -432,9 +456,7 @@ Exemple pour modifier le compte pour le **Client 1** :
   }
   ```
 
-### Comptes pour le **Client 4** (Modifications) :
-
-- **Compte 4** :
+- **Client 4 :**
   ```json
   {
     "accountNumber": 4,
@@ -444,8 +466,6 @@ Exemple pour modifier le compte pour le **Client 1** :
     "createDt": "2023-02-04"
   }
   ```
-
-- **Compte 14** :
   ```json
   {
     "accountNumber": 14,
@@ -455,8 +475,6 @@ Exemple pour modifier le compte pour le **Client 1** :
     "createDt": "2023-02-04"
   }
   ```
-
-- **Compte 24** :
   ```json
   {
     "accountNumber": 24,
@@ -466,67 +484,115 @@ Exemple pour modifier le compte pour le **Client 1** :
     "createDt": "2023-02-04"
   }
   ```
-  
+
 ---
 
-### 🎯 Récapitulatif des Modifications :
+### 4️⃣ Suppression des Comptes via HTTP (DELETE) 🚮
 
-1. **Client 1** : Adresses modifiées à "321 Broadway" et types de comptes ajustés à "Savings" et "Current".
-2. **Client 2** : Adresses modifiées à "789 Maple Ave" et types de comptes ajustés à "Current" et "Savings".
-3. **Client 3** : Adresses modifiées à "456 Oak St" et types de comptes ajustés à "Savings" et "Current".
-4. **Client 4** : Adresses modifiées à "987 Birch Rd" et types de comptes ajustés à "Current" et "Savings".
+Après avoir créé et modifié les comptes pour les clients, il peut être nécessaire de les supprimer individuellement. Cette section vous guide à travers le processus de suppression de chaque compte un par un en utilisant des requêtes HTTP DELETE.
+
+| **Client** | **Compte** | **Type de Compte** | **Adresse**  | **Date de Création** |
+|------------|------------|--------------------|--------------|----------------------|
+| Client 1   | Compte 1    | Savings            | 321 Broadway | 2023-02-01           |
+| Client 1   | Compte 11   | Current            | 321 Broadway | 2023-02-01           |
+| Client 1   | Compte 21   | Savings            | 321 Broadway | 2023-02-01           |
+| Client 2   | Compte 2    | Current            | 789 Maple Ave | 2023-02-02          |
+| Client 2   | Compte 12   | Savings            | 789 Maple Ave | 2023-02-02          |
+| Client 2   | Compte 22   | Current            | 789 Maple Ave | 2023-02-02          |
+| Client 3   | Compte 3    | Savings            | 456 Oak St    | 2023-02-03           |
+| Client 3   | Compte 13   | Current            | 456 Oak St    | 2023-02-03           |
+| Client 3   | Compte 23   | Savings            | 456 Oak St    | 2023-02-03           |
+| Client 4   | Compte 4    | Current            | 987 Birch Rd  | 2023-02-04           |
+| Client 4   | Compte 14   | Savings            | 987 Birch Rd  | 2023-02-04           |
+| Client 4   | Compte 24   | Current            | 987 Birch Rd  | 2023-02-04           |
+
+#### 4.1 **Suppression d'un compte pour un client via Postman**
+
+Exemple pour supprimer le compte pour le **Client 1** :
+- Ouvrez Postman.
+- Choisissez `DELETE`.
+- URL : `http://localhost:8080/deleteAccount/1`.
+
+#### 4.2 **Vérifier la suppression du compte**
+
+- Ouvrir le navigateur et tester cette URL : `http://localhost:8080/accounts`.
+- Ou utilisez Postman pour effectuer un GET sur `http://localhost:8080/accounts`.
+
+#### 4.3 **Répéter l'opération pour les autres comptes**
+
+Voici les URLs correspondantes pour chaque compte à supprimer :
+
+- **Client 1 :**
+  - Supprimer Compte 1 : `http://localhost:8080/deleteAccount/1`
+  - Supprimer Compte 11 : `http://localhost:8080/deleteAccount/11`
+  - Supprimer Compte 21 : `http://localhost:8080/deleteAccount/21`
+
+- **Client 2 :**
+  - Supprimer Compte 2 : `http://localhost:8080/deleteAccount/2`
+  - Supprimer Compte 12 : `http://localhost:8080/deleteAccount/12`
+  - Supprimer Compte 22 : `http://localhost:8080/deleteAccount/22`
+
+- **Client 3 :**
+  - Supprimer Compte 3 : `http://localhost:8080/deleteAccount/3`
+  - Supprimer Compte 13 : `http://localhost:8080/deleteAccount/13`
+  - Supprimer Compte 23 : `http://localhost:8080/deleteAccount/23`
+
+- **Client 4 :**
+  - Supprimer Compte 4 : `http://localhost:8080/deleteAccount/4`
+  - Supprimer Compte 14 : `http://localhost:8080/deleteAccount/14`
+  - Supprimer Compte 24 : `http://localhost:8080/deleteAccount/24`
 
 ---
 
 ## 🛠️ Test et Vérification
 
-### 1️⃣ Vérification via GET :
-- **Vérifiez la modification via l'URL `http://localhost:8080/accounts` ou via POSTMAN GET `http://localhost:8080/accounts`**.
+### 1️⃣ Vérification via GET
+- **Vérifiez la suppression via l'URL `http://localhost:8080/accounts` ou via POSTMAN GET `http://localhost:8080/accounts`**.
 
-### 2️⃣ Continuer à modifier et tester :
-- **Répétez les opérations PUT pour ajuster les détails des comptes restants comme spécifié**.
-
-Ces modifications permettent de mettre à jour les informations des comptes après leur création, en assurant que les nouvelles adresses et types de comptes sont appliqués correctement.
+### 2️⃣ Continuer à supprimer et tester
+- **Répétez les opérations DELETE pour chaque compte jusqu'à ce que tous soient supprimés**.
 
 ---
 
-## 🎓 Prochains Défis :
+## 🎓 Prochains Défis
 
-### 1️⃣ Documentation via Swagger :
+### 1️⃣ Documentation via Swagger
 - Implémentez et testez la documentation de votre API avec Swagger.
 
-### 2️⃣ Compréhension de la Structure MVC :
+### 2️⃣ Compréhension de la Structure MVC
 - Approfondissez la compréhension de la structure `controller -> services -> repository -> BD`.
 
-### 3️⃣ Gestion de l'Auto-Incrémentation de AccountID :
-- Explorez l'implémentation de l'auto-incrémentation pour les `accountId`.
+### 3️⃣ Gestion de l'Auto-Incrémentation de AccountID
+- Explorez
 
-### 4️⃣ Insertion en Lots (Batch Processing) :
+ l'implémentation de l'auto-incrémentation pour les `accountId`.
+
+### 4️⃣ Insertion en Lots (Batch Processing)
 - Implémentez l'insertion de comptes en masse via des opérations batch.
 
 ---
 
 ## ✍️ Évaluation Formative
 
-### 1️⃣ Insertion Multiple en Lots :
+### 1️⃣ Insertion Multiple en Lots
 - **Objectif** : Créer 12 comptes via POST.
 - **URL** : `http://localhost:8080/newAccounts`
 - **Body** : Passez une liste d'objets JSON représentant les comptes à créer.
 
-### 2️⃣ Suppression en Masse :
+### 2️⃣ Suppression en Masse
 - **Objectif** : Implémenter la suppression de tous les comptes d'un seul coup.
 - **URL** : `http://localhost:8080/deleteAllAccounts`
 - **Méthode** : DELETE (pas de body requis).
 
-### 3️⃣ Mise à Jour Multiple :
+### 3️⃣ Mise à Jour Multiple
 - **Objectif** : Mettre à jour plusieurs comptes en une seule opération.
 - **URL** : `http://localhost:8080/updateAccounts`
 - **Body** : Liste d'objets JSON représentant les comptes à mettre à jour.
 
-### 4️⃣ Ajout de Validation Personnalisée :
+### 4️⃣ Ajout de Validation Personnalisée
 - **Objectif** : Ajouter une validation pour s'assurer que tous les comptes créés en lot appartiennent au même client.
 
-### 5️⃣ Recherche en Masse :
+### 5️⃣ Recherche en Masse
 - **Objectif** : Ajouter la fonctionnalité de recherche de comptes en passant une liste d'IDs.
 
 ---
