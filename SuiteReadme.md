@@ -251,5 +251,183 @@ SELECT * FROM public.accounts;
 
 ---
 
-Ces exercices sont conçus pour renforcer votre compréhension de la gestion des données en lot, des opérations CRUD, de la validation, et de la gestion des transactions et des exceptions dans une application Spring Boot.
+# Annexe : 
+
+
+### 🏁 Partie 3 : Exercice de Validation Avancée
+
+Dans cette partie, vous allez mettre en pratique plusieurs concepts avancés de manipulation de données en lot, en intégrant des opérations de suppression, de mise à jour, de validation personnalisée, et de recherche en masse dans une application Spring Boot. Ces exercices vous permettront de maîtriser la gestion des opérations complexes tout en garantissant l'intégrité des données.
+
+---
+
+## 🚀 Exercices à Compléter
+
+### 1️⃣ Suppression en Lot des Comptes 🚮
+
+**Objectif** : Implémentez la suppression de plusieurs comptes à la fois en fournissant une liste d'identifiants.
+
+#### 1.1 **Modification du `AccountsController` pour la suppression en lot**
+
+Ajoutez une méthode dans `AccountsController` pour accepter une liste d'identifiants de comptes à supprimer.
+
+```java
+@DeleteMapping("/deleteAccounts")
+public String deleteAccounts(@RequestBody List<Long> accountIds) {
+    return accountsService.deleteAllByIds(accountIds);
+}
+```
+
+#### 1.2 **Implémentation de la méthode dans `AccountsService`**
+
+Ajoutez une méthode dans `AccountsService` pour supprimer tous les comptes correspondant aux identifiants fournis.
+
+```java
+@Transactional
+public String deleteAllByIds(List<Long> accountIds) {
+    try {
+        accountsRepository.deleteAllById(accountIds);
+        return "Comptes supprimés avec succès";
+    } catch (Exception e) {
+        return "Erreur lors de la suppression des comptes : " + e.getMessage();
+    }
+}
+```
+
+> **💡 Remarque :** L'utilisation de l'annotation `@Transactional` permet d'assurer que toutes les suppressions se déroulent correctement. Si une suppression échoue, aucune des suppressions ne sera appliquée, maintenant ainsi l'intégrité des données.
+
+#### 1.3 **Tester la suppression en lot**
+
+- **URL** : `DELETE http://localhost:8080/deleteAccounts`
+- **Méthode** : DELETE
+- **Body** : `[1, 2, 3, 4]`  // Remplacez les identifiants par ceux des comptes que vous souhaitez supprimer.
+
+Après l'envoi de la requête, vérifiez dans la base de données que les comptes spécifiés ont bien été supprimés.
+
+---
+
+### 2️⃣ Mise à Jour Multiple ✏️
+
+**Objectif** : Mettre à jour plusieurs comptes en une seule opération, en fournissant une liste d'objets comptes avec les nouvelles informations.
+
+#### 2.1 **Modification du `AccountsController` pour la mise à jour multiple**
+
+Ajoutez une méthode dans `AccountsController` pour accepter une liste d'objets comptes à mettre à jour.
+
+```java
+@PutMapping("/updateAccounts")
+public String updateAccounts(@RequestBody List<Accounts> accountsList) {
+    return accountsService.updateAccounts(accountsList);
+}
+```
+
+#### 2.2 **Implémentation de la méthode dans `AccountsService`**
+
+Ajoutez une méthode dans `AccountsService` pour mettre à jour les comptes dans la base de données.
+
+```java
+@Transactional
+public String updateAccounts(List<Accounts> accountsList) {
+    try {
+        accountsList.forEach(account -> accountsRepository.save(account));
+        return "Comptes mis à jour avec succès";
+    } catch (Exception e) {
+        return "Erreur lors de la mise à jour des comptes : " + e.getMessage();
+    }
+}
+```
+
+> **💡 Remarque :** Chaque compte est mis à jour indépendamment, mais toutes les mises à jour sont regroupées dans une seule transaction pour assurer la cohérence des données.
+
+#### 2.3 **Tester la mise à jour multiple**
+
+- **URL** : `PUT http://localhost:8080/updateAccounts`
+- **Méthode** : PUT
+- **Body** : Voici un exemple de corps JSON pour mettre à jour plusieurs comptes :
+
+```json
+[
+  {
+    "accountNumber": 1,
+    "customerId": 1,
+    "accountType": "Savings",
+    "branchAddress": "456 Oak St",
+    "createDt": "2023-02-01"
+  },
+  {
+    "accountNumber": 2,
+    "customerId": 2,
+    "accountType": "Checking",
+    "branchAddress": "789 Elm St",
+    "createDt": "2023-03-01"
+  }
+]
+```
+
+Après l'envoi de la requête, vérifiez que les comptes ont bien été mis à jour dans la base de données.
+
+---
+
+### 3️⃣ Ajout de Validation Personnalisée ✔️
+
+**Objectif** : Ajouter une validation pour s'assurer que tous les comptes créés en lot appartiennent au même client.
+
+#### 3.1 **Modification du `AccountsService` pour ajouter la validation**
+
+Ajoutez une validation dans la méthode `saveAll` pour vérifier que tous les comptes appartiennent au même client avant de les enregistrer.
+
+```java
+public String saveAll(List<Accounts> accountsList) {
+    if (!accountsList.stream().allMatch(a -> a.getCustomerId().equals(accountsList.get(0).getCustomerId()))) {
+        return "Tous les comptes doivent appartenir au même client";
+    }
+    // Reste de la méthode d'enregistrement...
+}
+```
+
+> **💡 Remarque :** Cette validation garantit l'intégrité logique des données en s'assurant que tous les comptes d'une opération en lot sont liés au même client.
+
+#### 3.2 **Tester la validation**
+
+Tentez d'insérer des comptes avec des `customerId` différents dans la même requête POST. Vous devriez recevoir un message d'erreur indiquant que tous les comptes doivent appartenir au même client.
+
+---
+
+### 4️⃣ Recherche en Masse 🔍
+
+**Objectif** : Ajouter la fonctionnalité de recherche de comptes en passant une liste d'IDs.
+
+#### 4.1 **Modification du `AccountsController` pour la recherche en masse**
+
+Ajoutez une méthode dans `AccountsController` pour accepter une liste d'identifiants de comptes et renvoyer les comptes correspondants.
+
+```java
+@GetMapping("/findAccounts")
+public List<Accounts> findAccounts(@RequestBody List<Long> accountIds) {
+    return accountsService.findAllByIds(accountIds);
+}
+```
+
+#### 4.2 **Implémentation de la méthode dans `AccountsService`**
+
+Ajoutez une méthode dans `AccountsService` pour rechercher tous les comptes correspondant aux identifiants fournis.
+
+```java
+public List<Accounts> findAllByIds(List<Long> accountIds) {
+    return accountsRepository.findAllById(accountIds);
+}
+```
+
+#### 4.3 **Tester la recherche en masse**
+
+- **URL** : `GET http://localhost:8080/findAccounts`
+- **Méthode** : POST
+- **Body** : `[1, 2, 3, 4]`  // Remplacez les identifiants par ceux des comptes que vous souhaitez rechercher.
+
+Vérifiez que les comptes correspondants aux identifiants fournis sont bien retournés.
+
+---
+
+## 🏃‍♂️ Test et Vérification
+
+Pour chaque exercice, il est essentiel de tester soigneusement vos implémentations en utilisant un outil comme Postman et en vérifiant les résultats directement dans la base de données.
 
