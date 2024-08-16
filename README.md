@@ -182,9 +182,7 @@ Commencez par insérer les clients dans la base de données en suivant les étap
 
 - Allez dans pgAdmin ou ouvrez l'invite de commande PostgreSQL.
 
-#### 1.2 **Insérer les 
-
-20 clients dans la table `customer`**
+#### 1.2 **Insérer les 20 clients dans la table `customer`**
 ```sql
 INSERT INTO public.customer (customer_id, create_dt, email, mobile_number, name)
 VALUES
@@ -361,9 +359,7 @@ Après avoir créé les comptes pour les clients, vous pouvez modifier les déta
 | Client 1   | Compte 11   | Savings            | 123 Main St          | 321 Broadway          | 2023-02-01           |
 | Client 1   | Compte 21   | Checking           | 123 Main St          | 321 Broadway          | 2023-02-01           |
 | Client 2   | Compte 2    | Savings            | 456 Main St          | 789 Maple Ave         | 2023-02-02           |
-| Client 2   | Compte 12   | Checking           | 456 Main St         
-
- | 789 Maple Ave         | 2023-02-02           |
+| Client 2   | Compte 12   | Checking           | 456 Main St          | 789 Maple Ave         | 2023-02-02           |
 | Client 2   | Compte 22   | Savings            | 456 Main St          | 789 Maple Ave         | 2023-02-02           |
 | Client 3   | Compte 3    | Checking           | 789 Elm St           | 456 Oak St            | 2023-02-03           |
 | Client 3   | Compte 13   | Savings            | 789 Elm St           | 456 Oak St            | 2023-02-03           |
