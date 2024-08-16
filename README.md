@@ -325,24 +325,148 @@ Exemple pour modifier le compte pour le **Client 1** :
 ### 3.2 **Vérifier la modification du compte** :
 - Ouvrir le navigateur et tester cette URL : `http://localhost:8080/accounts`.
 - Ou utilisez Postman pour effectuer un GET sur `http://localhost:8080/accounts`.
+- Continuez ainsi pour les comptes restants.
 
-### 3.3 **Répéter l'opération pour les autres comptes** :
+### Comptes pour le **Client 1** (Modifications) :
 
-Exemple pour modifier le compte pour le **Client 2** :
-```json
-{
-  "accountNumber": 2
+- **Compte 1** :
+  ```json
+  {
+    "accountNumber": 1,
+    "customerId": 1,
+    "accountType": "Savings",
+    "branchAddress": "321 Broadway",
+    "createDt": "2023-02-01"
+  }
+  ```
 
-,
-  "customerId": 2,
-  "accountType": "Current",
-  "branchAddress": "789 Maple Ave",
-  "createDt": "2023-02-02"
-}
-```
+- **Compte 11** :
+  ```json
+  {
+    "accountNumber": 11,
+    "customerId": 1,
+    "accountType": "Current",
+    "branchAddress": "321 Broadway",
+    "createDt": "2023-02-01"
+  }
+  ```
 
-Continuez ainsi pour les comptes restants.
+- **Compte 21** :
+  ```json
+  {
+    "accountNumber": 21,
+    "customerId": 1,
+    "accountType": "Savings",
+    "branchAddress": "321 Broadway",
+    "createDt": "2023-02-01"
+  }
+  ```
 
+### Comptes pour le **Client 2** (Modifications) :
+
+- **Compte 2** :
+  ```json
+  {
+    "accountNumber": 2,
+    "customerId": 2,
+    "accountType": "Current",
+    "branchAddress": "789 Maple Ave",
+    "createDt": "2023-02-02"
+  }
+  ```
+
+- **Compte 12** :
+  ```json
+  {
+    "accountNumber": 12,
+    "customerId": 2,
+    "accountType": "Savings",
+    "branchAddress": "789 Maple Ave",
+    "createDt": "2023-02-02"
+  }
+  ```
+
+- **Compte 22** :
+  ```json
+  {
+    "accountNumber": 22,
+    "customerId": 2,
+    "accountType": "Current",
+    "branchAddress": "789 Maple Ave",
+    "createDt": "2023-02-02"
+  }
+  ```
+
+### Comptes pour le **Client 3** (Modifications) :
+
+- **Compte 3** :
+  ```json
+  {
+    "accountNumber": 3,
+    "customerId": 3,
+    "accountType": "Savings",
+    "branchAddress": "456 Oak St",
+    "createDt": "2023-02-03"
+  }
+  ```
+
+- **Compte 13** :
+  ```json
+  {
+    "accountNumber": 13,
+    "customerId": 3,
+    "accountType": "Current",
+    "branchAddress": "456 Oak St",
+    "createDt": "2023-02-03"
+  }
+  ```
+
+- **Compte 23** :
+  ```json
+  {
+    "accountNumber": 23,
+    "customerId": 3,
+    "accountType": "Savings",
+    "branchAddress": "456 Oak St",
+    "createDt": "2023-02-03"
+  }
+  ```
+
+### Comptes pour le **Client 4** (Modifications) :
+
+- **Compte 4** :
+  ```json
+  {
+    "accountNumber": 4,
+    "customerId": 4,
+    "accountType": "Current",
+    "branchAddress": "987 Birch Rd",
+    "createDt": "2023-02-04"
+  }
+  ```
+
+- **Compte 14** :
+  ```json
+  {
+    "accountNumber": 14,
+    "customerId": 4,
+    "accountType": "Savings",
+    "branchAddress": "987 Birch Rd",
+    "createDt": "2023-02-04"
+  }
+  ```
+
+- **Compte 24** :
+  ```json
+  {
+    "accountNumber": 24,
+    "customerId": 4,
+    "accountType": "Current",
+    "branchAddress": "987 Birch Rd",
+    "createDt": "2023-02-04"
+  }
+  ```
+  
 ---
 
 ### 🎯 Récapitulatif des Modifications :
