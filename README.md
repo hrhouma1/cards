@@ -559,9 +559,7 @@ Voici les URLs correspondantes pour chaque compte à supprimer :
 - Approfondissez la compréhension de la structure `controller -> services -> repository -> BD`.
 
 ### 3️⃣ Gestion de l'Auto-Incrémentation de AccountID
-- Explorez
-
- l'implémentation de l'auto-incrémentation pour les `accountId`.
+- Explorez l'implémentation de l'auto-incrémentation pour les `accountId`.
 
 ### 4️⃣ Insertion en Lots (Batch Processing)
 - Implémentez l'insertion de comptes en masse via des opérations batch.
