@@ -1,7 +1,3 @@
-Voici la correction de votre évaluation formative, présentée dans un style cohérent et professionnel :
-
----
-
 # 🏁 Partie 1 : Création en Lot des Comptes Bancaires
 
 Dans cette partie, nous allons aborder l'insertion multiple de comptes pour différents clients via des requêtes POST en une seule opération. Cette approche vous permet de gérer efficacement les données tout en minimisant les risques d'erreurs.
