@@ -625,6 +625,45 @@ Voici les URLs correspondantes pour chaque compte à supprimer :
 
 ---
 
-Ces exercices sont conçus pour renforcer votre compréhension de la gestion des données en lot, des opérations CRUD, de la validation, et de la gestion des transactions et des exceptions dans une application Spring Boot.
+
+
+# 📄 Annexe : Explication des Annotations de Mapping dans le Contrôleur Spring Boot
+
+| **Annotation**                  | **Méthode HTTP** | **URL**                    | **Description**                                                                                                                                         | **Exemple d'Utilisation**                                              |
+|---------------------------------|------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| `@DeleteMapping("/deleteAccount/{id}")` | DELETE           | `/deleteAccount/{id}`        | Cette annotation est utilisée pour supprimer un compte spécifique en utilisant son identifiant (`id`). Le `id` est passé en tant que paramètre de l'URL. | Supprimer un compte : `DELETE /deleteAccount/1`                        |
+| `@PutMapping("/update/{id}")`      | PUT              | `/update/{id}`               | Cette annotation permet de mettre à jour les détails d'un compte spécifique. Le `id` du compte à mettre à jour est passé en paramètre dans l'URL.        | Mettre à jour un compte : `PUT /update/1`                              |
+| `@PostMapping("/newAccount")`      | POST             | `/newAccount`                | Cette annotation est utilisée pour créer un nouveau compte. Les détails du compte sont passés dans le corps de la requête en format JSON.                | Créer un nouveau compte : `POST /newAccount`                           |
+| `@GetMapping("/accounts")`         | GET              | `/accounts`                  | Cette annotation permet de récupérer la liste de tous les comptes disponibles.                                                                            | Récupérer tous les comptes : `GET /accounts`                           |
+| `@GetMapping("/myAccount/{id}")`   | GET              | `/myAccount/{id}`            | Cette annotation permet de récupérer les détails d'un compte spécifique en utilisant son identifiant (`id`). Le `id` est passé en tant que paramètre de l'URL. | Récupérer un compte spécifique : `GET /myAccount/1`                    |
 
 ---
+
+### 🔍 Détails des Annotations :
+
+1. **@DeleteMapping** : Utilisée pour la suppression des ressources.
+   - **Exemple** : `@DeleteMapping("/deleteAccount/{id}")`
+   - **Description** : Supprime un compte en fonction de l'ID fourni dans l'URL.
+
+2. **@PutMapping** : Utilisée pour mettre à jour une ressource existante.
+   - **Exemple** : `@PutMapping("/update/{id}")`
+   - **Description** : Met à jour les informations d'un compte existant en fonction de l'ID.
+
+3. **@PostMapping** : Utilisée pour la création d'une nouvelle ressource.
+   - **Exemple** : `@PostMapping("/newAccount")`
+   - **Description** : Crée un nouveau compte avec les détails fournis dans le corps de la requête.
+
+4. **@GetMapping** : Utilisée pour récupérer des ressources.
+   - **Exemple** : `@GetMapping("/accounts")`
+   - **Description** : Récupère la liste de tous les comptes disponibles.
+
+   - **Exemple** : `@GetMapping("/myAccount/{id}")`
+   - **Description** : Récupère les détails d'un compte spécifique en fonction de l'ID fourni dans l'URL.
+
+---
+
+### 💡 Remarque :
+- Les annotations `@DeleteMapping`, `@PutMapping`, `@PostMapping`, et `@GetMapping` sont des raccourcis fournis par Spring Boot pour gérer les requêtes HTTP.
+- Chaque annotation correspond à une méthode HTTP spécifique (DELETE, PUT, POST, GET), utilisée pour interagir avec les ressources (ici, les comptes) sur le serveur.
+
+
